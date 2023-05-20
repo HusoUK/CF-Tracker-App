@@ -1,0 +1,63 @@
+﻿@model CFTracker.Models.UserInfoViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center py-4">User Profile</h1>
+
+
+@if (Model == null)
+{
+    <div class="text-center">
+        <h2>Account not found:</h2>
+        <p>No user profile matching your login e-mail can be found.</p>
+        <a class="w-25 text-center btn bgc-navy text-light fs-5 smallscreen-40width smallscreen-btn-fontsize" asp-action="Create">Create Profile</a>
+    </div>
+}
+
+else
+{
+    <div class="w-75 mx-auto my-2 smallscreen-ct fs-4 border-navy border-4 rounded rounded-3">
+        <dl class="row pt-3">
+            <dt class="col-sm-4 text-end smallscreen-ct">
+                Patient ID:
+            </dt>
+            <dd class="col-sm-8 text-center">
+                @Html.DisplayFor(model => model.PatientId)
+            </dd>
+            <dt class="col-sm-4 text-end smallscreen-ct">
+                Name:
+            </dt>
+            <dd class="col-sm-8 text-center">
+                @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
+            </dd>
+            <dt class="col-sm-4 text-end smallscreen-ct">
+                Date of birth:
+            </dt>
+            <dd class="col-sm-8 text-center">
+                @Html.DisplayFor(model => model.DateOfBirth)
+            </dd>
+            <dt class="col-sm-4 text-end smallscreen-ct">
+                Phone Number:
+            </dt>
+            <dd class="col-sm-8 text-center">
+                @Html.DisplayFor(model => model.PhoneNumber)
+            </dd>
+            <dt class="col-sm-4 text-end smallscreen-ct">
+                Email Adress:
+            </dt>
+            <dd class="col-sm-8 text-center">
+                @Html.DisplayFor(model => model.EmailAddress)
+            </dd>
+        </dl>
+    </div>
+    <div class="text-center py-2 w-75 mx-auto smallscreen-80width">
+        <div class="actionlink-btn w-25 text-center btn bgc-navy text-light fs-5 smallscreen-50width smallscreen-btn-fontsize">
+            @Html.ActionLink("Edit", "Edit", new { user = Model.EmailAddress })
+        </div>
+        <div class="pt-2">
+            <a class="w-50 text-center btn bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </div>
+    </div>
+}

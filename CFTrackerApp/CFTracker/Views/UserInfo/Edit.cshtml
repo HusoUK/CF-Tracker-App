@@ -1,0 +1,62 @@
+﻿@using System.Security.Claims;
+@model CFTrackerServices.Models.UserInfo
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center py-4">Edit Profile</h1>
+
+<div class="text-center fs-4">
+    <div class="input-screen mx-auto">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group not-visable">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label">Patient ID:</label>
+                <input asp-for="PatientId" class="form-control fs-5 text-center mx-auto w-75" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="FirstName" class="control-label">First name:</label>
+                <input asp-for="FirstName" class="form-control fs-5 text-center mx-auto w-75" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="LastName" class="control-label">Last name:</label>
+                <input asp-for="LastName" class="form-control fs-5 text-center mx-auto w-75" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="DateOfBirth" class="control-label">Date of birth:</label>
+                <input asp-for="DateOfBirth" class="form-control fs-5 text-center mx-auto w-75" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="PhoneNumber" class="control-label">Phone number:</label>
+                <input asp-for="PhoneNumber" class="form-control fs-5 text-center mx-auto w-75" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group pt-2">
+                <label asp-for="EmailAddress" class="control-label">Email address:</label>
+                <input asp-for="EmailAddress" value="@User.FindFirstValue(ClaimTypes.Email)" class="form-control fs-5 text-center mx-auto w-75" readonly />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group py-3">
+                <input type="submit" value="Save" class="w-25 text-center btn bgc-navy text-light fs-5 smallscreen-40width smallscreen-btn-fontsize" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="text-center w-75 mx-auto">
+    <a class="w-50 text-center btn bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-action="Index">Back to Profile</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

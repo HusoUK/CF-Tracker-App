@@ -1,0 +1,122 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.actionlink-btn a {
+    text-decoration: none !important;
+    color: #FFF !important;
+    display: block;
+    width: 100%;
+}
+
+.content {
+    padding-top: 3.6rem;
+    height: calc(93vh - 60px);
+}
+
+.table {
+    border-color: #8ed335 !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #fff;
+    background-color: #0c2340;
+}
+
+.height50perc {
+    height: 50%;
+}
+
+.bgc-navy {
+    background-color: #0c2340;
+}
+
+.bgc-yellow {
+    background-color: #fc0;
+}
+
+.border-navy {
+    border: 1px solid #0c2340 ;
+}
+
+.color-navy {
+    color: #0c2340;
+}
+
+.not-visable {
+    display: none;
+}
+
+.pad-bot-5 {
+    padding-bottom: 3rem;
+}
+
+.input-screen {
+    width: 75%;
+}
+
+@media screen and (max-width: 576px) {
+    .smallscreen-smallpics {
+        width: 33.333% !important;
+    }
+
+    .smallscreen-100width {
+        width: 100% !important;
+    }
+
+    .smallscreen-80width {
+        width: 80% !important;
+    }
+
+    .smallscreen-50width {
+        width: 50% !important;
+    }
+
+    .smallscreen-40width {
+        width: 40% !important;
+    }
+
+    .smallscreen-btn-fontsize {
+        font-size: 1rem !important;
+    }
+
+    .smallscreen-smallfont {
+        font-size: 0.8rem !important;
+    }
+
+    .content {
+        padding-top: 1.6rem;
+        height: calc(93vh - 60px);
+    }
+
+    .pad-bot-5 {
+        padding-bottom: 1rem !important;
+    }
+
+    .smallscreen-ct {
+        text-align: center !important;
+    }
+
+    .input-screen {
+        width: 100%;
+    }
+}

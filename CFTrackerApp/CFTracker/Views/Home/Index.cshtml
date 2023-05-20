@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center content">
+    <h1 class="display-4">Welcome to CF Tracker</h1>
+    <h5 class="pt-3 pad-bot-5">Helping to keep track of your Cystic Fibrosis related data.</h5>
+
+    <div class="row container px-3">
+    <div class="col-sm-4 smallscreen-smallpics">
+        <img src="~/Height.jpg" class="d-block w-75 mx-auto" alt="Multiple pairs of earrings">
+    </div>
+    <div class="col-sm-4 smallscreen-smallpics">
+        <img src="~/Spiro.jpg" class="d-block w-75 mx-auto" alt="Multiple pairs of earrings">
+    </div>
+    <div class="col-sm-4 smallscreen-smallpics">
+        <img src="~/Scales.jpg" class="d-block w-75 mx-auto" alt="Multiple pairs of earrings">
+    </div>
+</div>
+
+
+    <div class="w-50 my-5 mx-auto border-navy border-4 rounded rounded-3 smallscreen-80width">
+        <div class="pt-4"><a class="btn w-50 bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-area="" asp-controller="UserInfo" asp-action="Index">Personal Information</a></div>
+        <div class="py-4"><a class="btn w-50 bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-area="" asp-controller="LungFunction" asp-action="Index">Lung Function Results</a></div>
+        <div class="pb-4"><a class="btn w-50 bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-area="" asp-controller="BodyMassIndex" asp-action="Index">Weight, Height & BMI Results</a></div>
+    </div>
+</div>

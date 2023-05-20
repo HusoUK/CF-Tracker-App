@@ -1,0 +1,56 @@
+﻿@model CFTrackerServices.Models.BodyMassIndex
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center py-4">Height & Weight</h1>
+
+<div class="w-75 mx-auto my-2 smallscreen-ct fs-4 border-navy border-4 rounded rounded-3">
+    <dl class="row pt-3">
+        <dt class="col-sm-4 text-end smallscreen-ct">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class="col-sm-8 text-center">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class="col-sm-4 text-end smallscreen-ct">
+            @Html.DisplayNameFor(model => model.WeightKg)
+        </dt>
+        <dd class="col-sm-8 text-center">
+            @Html.DisplayFor(model => model.WeightKg)
+        </dd>
+        <dt class="col-sm-4 text-end smallscreen-ct">
+            @Html.DisplayNameFor(model => model.WeightTestingMachine)
+        </dt>
+        <dd class="col-sm-8 text-center">
+            @Html.DisplayFor(model => model.WeightTestingMachine)
+        </dd>
+        <dt class="col-sm-4 text-end smallscreen-ct">
+            @Html.DisplayNameFor(model => model.HeightCm)
+        </dt>
+        <dd class="col-sm-8 text-center">
+            @Html.DisplayFor(model => model.HeightCm)
+        </dd>
+        <dt class="col-sm-4 text-end smallscreen-ct">
+            @Html.DisplayNameFor(model => model.HeightTestingMachine)
+        </dt>
+        <dd class="col-sm-8 text-center">
+            @Html.DisplayFor(model => model.HeightTestingMachine)
+        </dd>
+        <dt class="col-sm-4 text-end smallscreen-ct">
+            @Html.DisplayNameFor(model => model.Bmi)
+        </dt>
+        <dd class="col-sm-8 text-center">
+            @Html.DisplayFor(model => model.Bmi)
+        </dd>
+    </dl>
+</div>
+<div class="text-center py-2 w-75 mx-auto smallscreen-80width">
+    <div class="actionlink-btn w-25 text-center btn bgc-navy text-light fs-5 smallscreen-50width smallscreen-btn-fontsize">
+        <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a>
+    </div>
+    <div class="pt-2">
+        <a class="w-50 text-center btn bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-action="Index">Back to List</a>
+    </div>    
+</div>

@@ -1,0 +1,261 @@
+﻿@model IEnumerable<CFTrackerServices.Models.BodyMassIndex>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center py-4">Height & Weight Results</h1>
+
+<div class="accordion accordion-flush" id="accordionBmi">
+    <div class="accordion-item bgc-yellow">
+        <h2 class="accordion-header" id="weight">
+            <button class="accordion-button bgc-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Weight Chart
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="weight" data-bs-parent="#accordionBmi">
+            <div class="accordion-body">
+                <canvas id="weightChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item bgc-yellow">
+        <h2 class="accordion-header" id="height">
+            <button class="accordion-button collapsed bgc-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Height Chart
+            </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="height" data-bs-parent="#accordionBmi">
+            <div class="accordion-body">
+                <canvas id="heightChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item bgc-yellow">
+        <h2 class="accordion-header" id="bmi">
+            <button class="accordion-button collapsed bgc-yellow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                BMI Chart
+            </button>
+        </h2>
+        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="bmi" data-bs-parent="#accordionBmi">
+            <div class="accordion-body">
+                <canvas id="bmiChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="text-center w-75 py-3 mx-auto my-auto">
+    <a class="w-25 text-center btn bgc-navy text-light fs-5 smallscreen-50width smallscreen-btn-fontsize" asp-action="Create">Create New</a>
+</p>
+
+<table class="table text-center">
+    <thead class="fs-4 smallscreen-smallfont">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                Weight<br />(kg)
+            </th>
+            <th>
+                Testing Machine
+            </th>
+            <th>
+                Height<br />(cm)
+            </th>
+            <th>
+                Testing Machine
+            </th>
+            <th>
+                BMI
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody class="smallscreen-smallfont">
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeightKg)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.WeightTestingMachine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeightCm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HeightTestingMachine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Bmi)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="text-center py-2 w-75 mx-auto smallscreen-80width">
+    <div class="pt-2">
+        <a class="w-50 text-center btn bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var ctxweight = document.getElementById('weightChart').getContext('2d');
+    var weightData = @Html.Raw(Json.Serialize(Model));
+    var data = {
+        labels: [],
+        datasets: [
+            {
+                label: 'Weight (Kg)',
+                data: [],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: false
+            }
+        ]
+    };
+    for (var i = 0; i < weightData.length; i++) {
+        data.labels.push(weightData[i].date);
+        data.datasets[0].data.push(weightData[i].weightKg);
+    }
+    var options = {
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Weight Chart'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                }
+            }]
+        }
+    };
+    var weightChart = new Chart(ctxweight, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+</script>
+
+<script>
+    var ctxheight = document.getElementById('heightChart').getContext('2d');
+    var heightData = @Html.Raw(Json.Serialize(Model));
+    var data = {
+        labels: [],
+        datasets: [
+            {
+                label: 'Weight (Kg)',
+                data: [],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: false
+            }
+        ]
+    };
+    for (var i = 0; i < heightData.length; i++) {
+        data.labels.push(heightData[i].date);
+        data.datasets[0].data.push(heightData[i].heightCm);
+    }
+    var options = {
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Height Chart'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                }
+            }]
+        }
+    };
+    var heightChart = new Chart(ctxheight, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+</script>
+
+
+<script>
+    var ctxbmi = document.getElementById('bmiChart').getContext('2d');
+    var bmiData = @Html.Raw(Json.Serialize(Model));
+    var data = {
+        labels: [],
+        datasets: [
+            {
+                label: 'Weight (Kg)',
+                data: [],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: false
+            }
+        ]
+    };
+    for (var i = 0; i < bmiData.length; i++) {
+        data.labels.push(bmiData[i].date);
+        data.datasets[0].data.push(bmiData[i].heightCm);
+    }
+    var options = {
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Height Chart'
+        },
+        scales: {
+            xAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                }
+            }],
+            yAxes: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                }
+            }]
+        }
+    };
+    var bmiChart = new Chart(ctxbmi, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+</script>

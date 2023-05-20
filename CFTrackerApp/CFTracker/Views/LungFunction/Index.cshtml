@@ -1,0 +1,124 @@
+﻿@model IEnumerable<CFTrackerServices.Models.LungFunction>
+@using CFTrackerServices.Models
+
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class ="text-center py-4">Lung Function Results</h1>
+
+<canvas id="lungFunctionsChart"></canvas>
+
+<p class ="text-center w-75 py-3 mx-auto my-auto">
+    <a class="w-25 text-center btn bgc-navy text-light fs-5 smallscreen-50width smallscreen-btn-fontsize" asp-action="Create">Add Lung Function</a>
+</p>
+<table class="table text-center">
+    <thead class="fs-4 smallscreen-smallfont">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fev)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fvc1)
+            </th>
+            <th>
+                Testing Machine
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fev)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fvc1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestingMachine)
+            </td>
+            <td class="">
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="text-center py-2 w-75 mx-auto smallscreen-80width">
+    <div class="pt-2">
+        <a class="w-50 text-center btn bgc-navy text-light fs-5 smallscreen-80width smallscreen-btn-fontsize" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var ctx = document.getElementById('lungFunctionsChart').getContext('2d');
+    var lungFunctions = @Html.Raw(Json.Serialize(Model));
+    var data = {
+        labels: [],
+        datasets: [
+            {
+                label: 'FVC1',
+                data: [],
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: false
+            },
+            {
+                label: 'FEV',
+                data: [],
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                fill: false
+            }
+        ]
+    };
+    for (var i = 0; i < lungFunctions.length; i++) {
+        data.labels.push(lungFunctions[i].date);
+        data.datasets[0].data.push(parseFloat(lungFunctions[i].fvc1));
+        data.datasets[1].data.push(parseFloat(lungFunctions[i].fev));
+    }
+    var options = {
+        responsive: true,
+        title: {
+            display: true,
+            text: 'Lung Function Chart'
+        },
+        scales: {
+            x: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                }
+            }],
+            y: [{
+                display: true,
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Value'
+                }
+            }]
+        }
+    };
+
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: data,
+        options: options
+    });
+</script>
