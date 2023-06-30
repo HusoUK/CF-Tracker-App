@@ -168,7 +168,7 @@
         labels: [],
         datasets: [
             {
-                label: 'Weight (Kg)',
+                label: 'Height (cm)',
                 data: [],
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -218,7 +218,7 @@
         labels: [],
         datasets: [
             {
-                label: 'Weight (Kg)',
+                label: 'BMI',
                 data: [],
                 borderColor: 'rgba(255, 99, 132, 1)',
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -228,13 +228,13 @@
     };
     for (var i = 0; i < bmiData.length; i++) {
         data.labels.push(bmiData[i].date);
-        data.datasets[0].data.push(bmiData[i].heightCm);
+        data.datasets[0].data.push(bmiData[i].bmi);
     }
     var options = {
         responsive: true,
         title: {
             display: true,
-            text: 'Height Chart'
+            text: 'BMI Chart'
         },
         scales: {
             xAxes: [{

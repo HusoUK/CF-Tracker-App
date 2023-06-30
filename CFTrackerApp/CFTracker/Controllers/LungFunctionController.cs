@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CFTrackerServices.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using CFTrackerServices.Models;
 using System.Security.Claims;
 using CFTrackerServices;
 using CFTracker.Models;
-using CFTracker.Services;
+using CFTracker.Mappers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CFTracker.Controllers
@@ -86,7 +79,7 @@ namespace CFTracker.Controllers
             if (ModelState.IsValid)
             {
                 var usersInfo = await _userDB.GetUserAsync(SignedInUserEmail);
-                var newLungFunction = ModelsMapper.LungFunctionViewModelToDBModel(lungFunctionInput, _dBModel);
+                var newLungFunction = lungFunctionInput.ToDBModel(_dBModel);
                 newLungFunction.User = usersInfo;
                 await _userDB.AddLungFunctionAsync(newLungFunction);
 
@@ -112,7 +105,7 @@ namespace CFTracker.Controllers
             {
                 return NotFound();
             }
-            var lungFunctionView = ModelsMapper.LungFunctionDBModelToViewModel(lungFunction, _viewModel);
+            var lungFunctionView = lungFunction.ToViewModel(_viewModel);
             return View(lungFunctionView);
         }
 
@@ -128,7 +121,7 @@ namespace CFTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                var lungFunctionDB = ModelsMapper.LungFunctionViewModelToDBModel(lungFunction, _dBModel);
+                var lungFunctionDB = lungFunction.ToDBModel(_dBModel);
                 await _userDB.UpdateLungFunctionAsync(lungFunctionDB);
                 
                 return RedirectToAction(nameof(Index));

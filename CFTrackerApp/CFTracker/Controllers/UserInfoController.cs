@@ -1,5 +1,5 @@
 ﻿using CFTracker.Models;
-using CFTracker.Services;
+using CFTracker.Mappers;
 using CFTrackerServices;
 using CFTrackerServices.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +33,7 @@ namespace CFTracker.Controllers
 
 			if (userDBInfo != null)
 			{
-				UserInfoViewModel userInfo = ModelsMapper.UserInfoDBModelToViewModel(userDBInfo, _viewModel);
+				UserInfoViewModel userInfo = userDBInfo.ToViewModel(_viewModel);
 				return View(userInfo);
 			}
 			return View();
@@ -52,7 +52,7 @@ namespace CFTracker.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				UserInfo newUser = ModelsMapper.UserInfoViewModelToDBModel(userInput, _dBModel);
+				UserInfo newUser = userInput.ToDBModel(_dBModel);
 				await _userDBAccess.AddUserAsync(newUser);
 				var exists = await _userDBAccess.GetUserAsync(newUser.EmailAddress);
 

@@ -1,7 +1,6 @@
 ﻿using CFTrackerServices.Data;
 using CFTrackerServices.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Claims;
 
 namespace CFTrackerServices
 {

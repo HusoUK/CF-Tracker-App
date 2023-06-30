@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using CFTrackerServices.Data;
+﻿using Microsoft.AspNetCore.Mvc;
 using CFTrackerServices.Models;
 using CFTrackerServices;
 using CFTracker.Models;
 using System.Security.Claims;
-using CFTracker.Services;
+using CFTracker.Mappers;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CFTracker.Controllers
@@ -85,7 +78,7 @@ namespace CFTracker.Controllers
             if (ModelState.IsValid)
             {
                 var userInfo = await _userDB.GetUserAsync(SignedInUserEmail);
-                var newBodyMassIndex = ModelsMapper.BodyMassIndexViewModelToDBModel(bodyMassIndexInput, _dBModel);
+                var newBodyMassIndex = bodyMassIndexInput.ToDBModel(_dBModel);
                 newBodyMassIndex.User = userInfo;
                 await _userDB.AddBodyMassIndexAsync(newBodyMassIndex);
 
@@ -111,7 +104,7 @@ namespace CFTracker.Controllers
             {
                 return NotFound();
             }
-            var bodyMassIndexView = ModelsMapper.BodyMassIndexDBModelToViewModel(bodyMassIndex, _viewModel);
+            var bodyMassIndexView = bodyMassIndex.ToViewModel(_viewModel);
             return View(bodyMassIndexView);
         }
 
@@ -127,7 +120,7 @@ namespace CFTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                var bodyMassIndexDB = ModelsMapper.BodyMassIndexViewModelToDBModel(bodyMassIndex, _dBModel);
+                var bodyMassIndexDB = bodyMassIndex.ToDBModel(_dBModel);
                 await _userDB.UpdateBodyMassIndexAsync(bodyMassIndexDB);
 
                 return RedirectToAction(nameof(Index));
